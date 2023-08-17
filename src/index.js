@@ -37,8 +37,20 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
-function decode(expr) {
-    // write your solution here
+function decode(encodedString) {
+    const segments = encodedString.match(/.{10}/g); // Split into 10-character segments
+    let decodedString = "";
+
+    for (const segment of segments) {
+        if (segment === '**********') {
+            decodedString += ' ';
+        }
+        else {
+            const decodedSegment = segment.replace(/10/g, '.').replace(/11/g, '-').replace(/0/g, '');
+            decodedString += MORSE_TABLE[decodedSegment];
+        }
+    }
+    return decodedString;
 }
 
 module.exports = {
